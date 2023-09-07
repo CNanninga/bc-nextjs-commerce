@@ -10,7 +10,12 @@ export default function CategoryContentItem({ block }) {
       return <Banner block={block} />;
 
     case BLOCK_TYPE_RICHTEXT:
-      return <RichText content={block.content} />;
+      return (
+        <RichText
+          className="prose mx-auto max-w-screen-md dark:prose-invert"
+          content={block.content}
+        />
+      );
 
     default:
       return null;

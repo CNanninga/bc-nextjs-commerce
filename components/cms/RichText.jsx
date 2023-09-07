@@ -6,7 +6,9 @@ function RichTextAsset({ id, content }) {
 
   const asset = assetLinks.find((asset) => asset.sys.id === id);
 
-  return asset?.url ? <img src={asset.url} alt={asset.description} /> : null;
+  return asset?.url ? (
+    <img className="mx-auto block" src={asset.url} alt={asset.description} />
+  ) : null;
 }
 
 export default function RichText({ content, className }) {

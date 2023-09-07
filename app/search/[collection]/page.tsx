@@ -44,11 +44,7 @@ export default async function CategoryPage({
   return (
     <section>
       <h1 className="mb-4 border-b border-white text-2xl">{collection.title}</h1>
-      <div>
-        {cmsContent.map((block) => (
-          <CategoryContentItem block={block} />
-        ))}
-      </div>
+      <div>{cmsContent && cmsContent.map((block) => <CategoryContentItem block={block} />)}</div>
       {products.length === 0 ? (
         <p className="py-3 text-lg">{`No products found in this collection`}</p>
       ) : (
