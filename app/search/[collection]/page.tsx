@@ -33,10 +33,14 @@ export default async function CategoryPage({
 }) {
   const { sort } = searchParams as { [key: string]: string };
   const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
-  const products = await getCollectionProducts({ collection: params.collection, sortKey, reverse });
+  const [collection, products] = await Promise.all([
+    getCollection(params.collection),
+    getCollectionProducts({ collection: params.collection, sortKey, reverse })
+  ]);
 
   return (
     <section>
+      <h1 className="mb-4 border-b border-white text-2xl">{collection.title}</h1>
       {products.length === 0 ? (
         <p className="py-3 text-lg">{`No products found in this collection`}</p>
       ) : (
