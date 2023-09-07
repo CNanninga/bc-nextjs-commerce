@@ -1,7 +1,9 @@
 import { getCollection, getCollectionProducts } from 'lib/bigcommerce';
+import { getCategoryContent } from 'lib/contentful/api';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import CategoryContentItem from 'components/cms/CategoryContentItem';
 import Grid from 'components/grid';
 import ProductGridItems from 'components/layout/product-grid-items';
 import { defaultSort, sorting } from 'lib/constants';
@@ -33,14 +35,20 @@ export default async function CategoryPage({
 }) {
   const { sort } = searchParams as { [key: string]: string };
   const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
-  const [collection, products] = await Promise.all([
+  const [collection, cmsContent, products] = await Promise.all([
     getCollection(params.collection),
+    getCategoryContent(params.collection),
     getCollectionProducts({ collection: params.collection, sortKey, reverse })
   ]);
 
   return (
     <section>
       <h1 className="mb-4 border-b border-white text-2xl">{collection.title}</h1>
+      <div>
+        {cmsContent.map((block) => (
+          <CategoryContentItem block={block} />
+        ))}
+      </div>
       {products.length === 0 ? (
         <p className="py-3 text-lg">{`No products found in this collection`}</p>
       ) : (
