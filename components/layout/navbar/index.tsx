@@ -21,11 +21,11 @@ export default async function Navbar() {
         <MobileMenu menu={menu} />
       </div>
       <div className="flex w-full items-center">
-        <div className="flex w-full md:w-1/2">
+        <div className="flex w-full md:w-3/4">
           <Link
             href="/"
             aria-label="Go back home"
-            className="mr-2 flex w-full items-center justify-center md:w-1/2 lg:mr-6"
+            className="mr-2 flex w-full items-center justify-center md:w-1/3 lg:mr-6"
           >
             <div>
               {settings.logo.url && <img src={settings.logo.url} alt={settings.logo.text} />}
