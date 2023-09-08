@@ -28,7 +28,12 @@ export default async function Navbar() {
             className="mr-2 flex w-full items-center justify-center md:w-1/2 lg:mr-6"
           >
             <div>
-              <img src={settings.logo.url} />
+              {settings.logo.url && <img src={settings.logo.url} alt={settings.logo.text} />}
+              {!settings.logo.url && (
+                <div className="ml-2 flex-none text-sm font-medium uppercase dark:text-black md:hidden lg:block">
+                  {settings.logo.text}
+                </div>
+              )}
             </div>
           </Link>
           {menu.length ? (
