@@ -13,7 +13,7 @@ function RichTextAsset({ id, content }) {
 
 export default function RichText({ content, className }) {
   return (
-    <div className={className}>
+    <div className={`${className} prose dark:prose-invert`}>
       {documentToReactComponents(content.json, {
         renderNode: {
           [BLOCKS.EMBEDDED_ASSET]: (node) => (

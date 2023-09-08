@@ -1,4 +1,6 @@
 import Navbar from 'components/layout/navbar';
+import { getStoreSettings } from 'lib/mybigcommerce/api';
+import { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ReactNode, Suspense } from 'react';
 import './globals.css';
@@ -8,25 +10,29 @@ const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
   ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
   : 'http://localhost:3000';
 
-export const metadata = {
-  metadataBase: new URL(baseUrl),
-  title: {
-    default: SITE_NAME!,
-    template: `%s | ${SITE_NAME}`
-  },
-  robots: {
-    follow: true,
-    index: true
-  },
-  ...(TWITTER_CREATOR &&
-    TWITTER_SITE && {
-      twitter: {
-        card: 'summary_large_image',
-        creator: TWITTER_CREATOR,
-        site: TWITTER_SITE
-      }
-    })
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getStoreSettings();
+
+  return {
+    metadataBase: new URL(baseUrl),
+    title: {
+      default: settings.storeName,
+      template: `%s | ${settings.storeName}`
+    },
+    robots: {
+      follow: true,
+      index: true
+    },
+    ...(TWITTER_CREATOR &&
+      TWITTER_SITE && {
+        twitter: {
+          card: 'summary_large_image',
+          creator: TWITTER_CREATOR,
+          site: TWITTER_SITE
+        }
+      })
+  };
+}
 
 const inter = Inter({
   subsets: ['latin'],

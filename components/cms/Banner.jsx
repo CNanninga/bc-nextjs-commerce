@@ -1,6 +1,6 @@
 import RichText from './RichText';
 
-export default function Banner({ block }) {
+export default function Banner({ className, block }) {
   const { heading, imagePosition, backgroundColor, style, content, image } = block;
 
   const bgClass = style == 'light' ? `bg-${backgroundColor}-200` : `bg-${backgroundColor}-800`;
@@ -13,9 +13,7 @@ export default function Banner({ block }) {
   );
 
   return (
-    <div
-      className={`mx-auto my-6 max-w-screen-lg rounded-2xl p-12 md:grid md:grid-cols-2 md:gap-8 ${bgClass}`}
-    >
+    <div className={`${className} rounded-2xl p-12 md:grid md:grid-cols-2 md:gap-8 ${bgClass}`}>
       {imagePosition === 'left' && bannerImg}
       <div className={`${textColorClass}`}>
         <h3 className="mb-8 text-3xl font-bold">{heading}</h3>
