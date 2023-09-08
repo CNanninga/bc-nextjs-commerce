@@ -111,7 +111,7 @@ export async function bigCommerceFetch<T>({
     };
     if (cache !== 'no-store') {
       fetchOpts.next = {
-        revalidate: process.env.FETCH_REVALIDATE_TIME
+        revalidate: parseInt(process.env.FETCH_REVALIDATE_TIME)
       };
     } else {
       fetchOpts.cache = cache;
