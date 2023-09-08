@@ -96,36 +96,40 @@ export async function bigCommerceFetch<T>({
   cache?: RequestCache;
 }): Promise<{ status: number; body: T } | never> {
   try {
-    type FetchOpts = {
-      method: string;
-      headers: object;
-      body: string;
-      cache?: string;
-      next?: object;
-    };
-
-    const fetchOpts: FetchOpts = {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${process.env.BIGCOMMERCE_CUSTOMER_IMPERSONATION_TOKEN}`,
-        'Content-Type': 'application/json',
-        ...headers
-      },
-      body: JSON.stringify({
-        ...(query && { query }),
-        ...(variables && { variables })
-      })
-    };
-    if (cache !== 'no-store') {
-      fetchOpts.next = {
-        revalidate: parseInt(process.env.FETCH_REVALIDATE_TIME)
-      };
+    let result;
+    if (cache === 'no-store') {
+      result = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${process.env.BIGCOMMERCE_CUSTOMER_IMPERSONATION_TOKEN}`,
+          'Content-Type': 'application/json',
+          ...headers
+        },
+        body: JSON.stringify({
+          ...(query && { query }),
+          ...(variables && { variables })
+        }),
+        cache
+      });
     } else {
-      fetchOpts.cache = cache;
+      result = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${process.env.BIGCOMMERCE_CUSTOMER_IMPERSONATION_TOKEN}`,
+          'Content-Type': 'application/json',
+          ...headers
+        },
+        body: JSON.stringify({
+          ...(query && { query }),
+          ...(variables && { variables })
+        }),
+        next: {
+          revalidate: parseInt(String(process.env.FETCH_REVALIDATE_TIME))
+        }
+      });
     }
-
-    const result = await fetch(endpoint, fetchOpts);
 
     const body = await result.json();
 
