@@ -96,7 +96,15 @@ export async function bigCommerceFetch<T>({
   cache?: RequestCache;
 }): Promise<{ status: number; body: T } | never> {
   try {
-    const fetchOpts = {
+    type FetchOpts = {
+      method: string;
+      headers: object;
+      body: string;
+      cache?: string;
+      next?: object;
+    };
+
+    const fetchOpts: FetchOpts = {
       method: 'POST',
       headers: {
         Accept: 'application/json',
