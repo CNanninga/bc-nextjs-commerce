@@ -14,7 +14,7 @@ export default function Banner({ block }) {
 
   return (
     <div
-      className={`mx-auto my-6 grid max-w-screen-lg grid-cols-2 gap-8 rounded-2xl p-12 ${bgClass}`}
+      className={`mx-auto my-6 max-w-screen-lg rounded-2xl p-12 md:grid md:grid-cols-2 md:gap-8 ${bgClass}`}
     >
       {imagePosition === 'left' && bannerImg}
       <div className={`${textColorClass}`}>
