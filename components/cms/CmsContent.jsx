@@ -1,6 +1,6 @@
 import ContentBlock from 'components/cms/ContentBlock';
 
-export default function CmsContent({ className, blocks }) {
+export default function CmsContent({ blocks, className = '' }) {
   return (
     <div className={`${className} grid grid-cols-6 gap-6`}>
       {blocks.map((block) => (
