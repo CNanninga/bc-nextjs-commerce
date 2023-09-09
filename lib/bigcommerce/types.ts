@@ -47,6 +47,7 @@ export type Image = {
 
 export type VercelProduct = {
   id: string;
+  sku: string;
   handle: string;
   availableForSale: boolean;
   title: string;
