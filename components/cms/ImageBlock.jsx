@@ -26,7 +26,7 @@ export default function ImageBlock({ className, block }) {
   }
 
   return (
-    <div className={`${className} ${sizeClass}`}>
+    <div className={`${className} ${sizeClass} mx-auto block`}>
       <img src={`${block.image?.url}?w=${imgSize}`} alt={block.image?.description} />
     </div>
   );

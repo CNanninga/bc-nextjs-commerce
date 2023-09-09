@@ -17,7 +17,7 @@ export default function Banner({ className, block }) {
       {imagePosition === 'left' && bannerImg}
       <div className={`${textColorClass}`}>
         <h3 className="mb-8 text-3xl font-bold">{heading}</h3>
-        <RichText className="text-xl" content={content} />
+        <RichText className={`text-xl ${textColorClass}`} content={content} />
       </div>
       {imagePosition === 'right' && bannerImg}
     </div>

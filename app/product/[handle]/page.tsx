@@ -2,13 +2,15 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
+import CmsContent from 'components/cms/CmsContent';
 import { GridTileImage } from 'components/grid/tile';
 import Footer from 'components/layout/footer';
 import { Gallery } from 'components/product/gallery';
 import { ProductDescription } from 'components/product/product-description';
-import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { getProduct, getProductRecommendations } from 'lib/bigcommerce';
 import { Image } from 'lib/bigcommerce/types';
+import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
+import { getContentBlocks } from 'lib/contentful/api';
 import Link from 'next/link';
 
 export const runtime = 'edge';
@@ -56,6 +58,8 @@ export default async function ProductPage({ params }: { params: { handle: string
 
   if (!product) return notFound();
 
+  const cmsContent = await getContentBlocks('product', product.sku);
+
   const productJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -96,6 +100,7 @@ export default async function ProductPage({ params }: { params: { handle: string
             <ProductDescription product={product} />
           </div>
         </div>
+        {cmsContent && <CmsContent className="mx-8" blocks={cmsContent} cms />}
         <Suspense>
           <RelatedProducts id={product.id} />
         </Suspense>

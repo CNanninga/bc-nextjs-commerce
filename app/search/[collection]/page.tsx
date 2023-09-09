@@ -3,7 +3,7 @@ import { getContentBlocks } from 'lib/contentful/api';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import ContentBlock from 'components/cms/ContentBlock';
+import CmsContent from 'components/cms/CmsContent';
 import Grid from 'components/grid';
 import ProductGridItems from 'components/layout/product-grid-items';
 import { defaultSort, sorting } from 'lib/constants';
@@ -44,10 +44,7 @@ export default async function CategoryPage({
   return (
     <section>
       <h1 className="mb-4 border-b border-white text-2xl">{collection.title}</h1>
-      <div className="grid grid-cols-6 gap-6">
-        {cmsContent &&
-          cmsContent.map((block: any) => <ContentBlock key={block.sys.id} block={block} />)}
-      </div>
+      {cmsContent && <CmsContent blocks={cmsContent} />}
       {products.length === 0 ? (
         <p className="py-3 text-lg">{`No products found in this collection`}</p>
       ) : (
