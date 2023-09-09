@@ -100,7 +100,7 @@ export default async function ProductPage({ params }: { params: { handle: string
             <ProductDescription product={product} />
           </div>
         </div>
-        {cmsContent && <CmsContent className="mx-8" blocks={cmsContent} cms />}
+        {cmsContent && <CmsContent className="mx-8" blocks={cmsContent} />}
         <Suspense>
           <RelatedProducts id={product.id} />
         </Suspense>
