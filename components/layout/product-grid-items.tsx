@@ -20,6 +20,10 @@ export default function ProductGridItems({ products }: { products: Product[] }) 
               fill
               sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
             />
+            <div
+              dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
+              className="px-4 pt-2"
+            ></div>
           </Link>
         </Grid.Item>
       ))}

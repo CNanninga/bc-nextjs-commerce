@@ -19,6 +19,7 @@ export default async function HomePage() {
   return (
     <>
       {cmsContent && <CmsContent className="mx-8" blocks={cmsContent} />}
+      <h2 className="mb-4 text-center text-3xl">Featured Products</h2>
       <ThreeItemGrid />
       <Suspense>
         <Suspense>
